@@ -5,12 +5,24 @@
 #include <IRremote.h>
 
 IRsend ir;
+int led = 0;
+int ctr = 0;
 
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
   ir.enableIROut(38);
 }
 
 void loop() {
+  digitalWrite(LED_BUILTIN, led);
   ir.mark(1000);
   ir.space(1000);
+  if(ctr > 249) {
+    if(led == 0)
+      led = 1;
+    else
+      led = 0;
+  }
+  else
+    ctr++;
 }
